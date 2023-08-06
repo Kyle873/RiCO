@@ -51,7 +51,7 @@ public static class Handlers
     }
 
     [RequestHandler(typeof(RetrievePlayerInfoRes))]
-    static void RetrievePlayerInfo(HttpListenerContext context, string data)
+    public static void RetrievePlayerInfo(HttpListenerContext context, string data)
     {
         SendResponse(context, new RetrievePlayerInfoRes
         {

@@ -29,7 +29,7 @@ public class RiCO : BaseUnityPlugin
 {
     public static ManualLogSource Log;
 
-    public static bool ServerEnabled = false;
+    public static bool ServerEnabled = true;
     public static bool TrafficMonitoring = true;
     public static bool DisableAC = true;
     public static bool GachaAnimationBypass = true;
