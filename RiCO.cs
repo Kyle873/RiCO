@@ -20,7 +20,6 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using RiCO.Emu;
-using System;
 using System.Reflection;
 using UnityEngine;
 
@@ -56,8 +55,9 @@ public class RiCO : BaseUnityPlugin
 
         Harmony.UnpatchAll();
 
-        // Restart the game, essentially
-        // OrangeSceneManager.Instance.ChangeScene("switch", OrangeSceneManager.LoadingType.DEFAULT, null, true);
+        // Restart the game, essentially, but only if we're running the server, since it'll require a full login flow again
+        if (ServerEnabled)
+            OrangeSceneManager.Instance.ChangeScene("switch", OrangeSceneManager.LoadingType.DEFAULT, null, true);
     }
 
     void Update()
