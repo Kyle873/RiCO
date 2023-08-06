@@ -17,6 +17,7 @@
  */
 
 using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using System.Reflection;
@@ -29,11 +30,11 @@ public class RiCO : BaseUnityPlugin
 {
     public static ManualLogSource Log;
 
-    public static bool ServerEnabled = true;
-    public static bool TrafficMonitoring = true;
-    public static bool DisableAC = true;
-    public static bool GachaAnimationBypass = true;
-    public static bool SetEventSliderMax = true;
+    public static ConfigEntry<bool> ServerEnabled;
+    public static ConfigEntry<bool> TrafficMonitoring;
+    public static ConfigEntry<bool> DisableAC;
+    public static ConfigEntry<bool> GachaAnimationBypass;
+    public static ConfigEntry<bool> SetEventSliderMax;
     
     public bool HostPatched;
 
@@ -41,12 +42,18 @@ public class RiCO : BaseUnityPlugin
     {
         Log = Logger;
 
+        ServerEnabled = Config.Bind("Settings", "ServerEnabled", false, "Enable the local private server");
+        TrafficMonitoring = Config.Bind("Settings", "TrafficMonitoring", false, "Enable traffic monitoring for requests and responses");
+        DisableAC = Config.Bind("Settings", "DisableAC", false, "Disables the anti-cheat");
+        GachaAnimationBypass = Config.Bind("Settings", "GachaAnimationBypass", false, "Bypass the capsule gacha animation");
+        SetEventSliderMax = Config.Bind("Settings", "SetEventSliderMax", false, "Set the event stage slider to the max value");
+
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 
         Logger.LogMessage($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         AudioManager.Instance.PlaySystemSE(SystemSE.CRI_SYSTEMSE_SYS_WINDOW_OP03);
 
-        if (ServerEnabled)
+        if (ServerEnabled.Value)
             Server.Server.Start();
         else
             HostPatched = true;
@@ -54,13 +61,13 @@ public class RiCO : BaseUnityPlugin
 
     void OnDestroy()
     {
-        if (ServerEnabled)
+        if (ServerEnabled.Value)
             Server.Server.Stop();
 
         Harmony.UnpatchAll();
 
         // Restart the game, essentially, but only if we're running the server, since it'll require a full login flow again
-        if (ServerEnabled)
+        if (ServerEnabled.Value)
             OrangeSceneManager.Instance.ChangeScene("switch", OrangeSceneManager.LoadingType.DEFAULT, null, true);
     }
 
@@ -75,7 +82,7 @@ public class RiCO : BaseUnityPlugin
             OrangeSceneManager.Instance.ChangeScene("switch", OrangeSceneManager.LoadingType.DEFAULT, null, true);
 
         // Redirect Server
-        if (!HostPatched && ServerEnabled && ServerConfig.Instance.ServerSetting != null)
+        if (!HostPatched && ServerEnabled.Value && ServerConfig.Instance.ServerSetting != null)
         {
             foreach (GameServerGameInfo info in ServerConfig.Instance.ServerSetting.Game)
                 foreach (GameServerZoneInfo zone in info.Zone)

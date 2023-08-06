@@ -8,7 +8,7 @@ static class GachaAnimationBypass
     [HarmonyPrefix, HarmonyPatch(typeof(GachaConfirmUI), nameof(GachaConfirmUI.Setup))]
     static bool Setup(GachaConfirmUI __instance, GACHALIST_TABLE p_gachalistTable, ITEM_TABLE p_costItem)
     {
-        if (!RiCO.GachaAnimationBypass)
+        if (!RiCO.GachaAnimationBypass.Value)
             return true;
 
         p_gachalistTable.n_PERFORM = 0;

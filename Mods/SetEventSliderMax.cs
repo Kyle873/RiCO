@@ -21,7 +21,7 @@ static class SetEventSliderMax
     [HarmonyPrefix, HarmonyPatch(typeof(EventStageMain), "EventTabHelper")]
     static bool EventTabHelper(EventStageMain __instance, TabType tabType, int tabIndex = 0)
     {
-        if (!RiCO.SetEventSliderMax)
+        if (!RiCO.SetEventSliderMax.Value)
             return true;
 
         /*

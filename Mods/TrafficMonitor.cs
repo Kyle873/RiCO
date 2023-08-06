@@ -13,7 +13,7 @@ static class TrafficMonitor
     [HarmonyPrefix, HarmonyPatch(typeof(GameServerService), "WWWRequestError")]
     static bool WWWRequestError(UnityWebRequest www, RequestCommand cmd)
     {
-        if (!RiCO.TrafficMonitoring)
+        if (!RiCO.TrafficMonitoring.Value)
             return true;
         
         byte[] data = www.downloadHandler.data;
@@ -27,7 +27,7 @@ static class TrafficMonitor
     [HarmonyPrefix, HarmonyPatch(typeof(OrangeServerService<GameServerService>), "WWWNetworkError")]
     static bool WWWNetworkError(RequestCommand cmd)
     {
-        if (!RiCO.TrafficMonitoring)
+        if (!RiCO.TrafficMonitoring.Value)
             return true;
         
         RiCO.Log.LogWarning($"WWW Network Error: {cmd.serverRequest.GetType()}");
@@ -38,7 +38,7 @@ static class TrafficMonitor
     [HarmonyPrefix, HarmonyPatch(typeof(GameServerService), "ParseServerResponse")]
     static bool ParseServerResponse(RequestCommand cmd, IResponse res)
     {
-        if (!RiCO.TrafficMonitoring)
+        if (!RiCO.TrafficMonitoring.Value)
             return true;
         
         RiCO.Log.LogWarning($"Received {cmd.responseType.Name} from Server");
@@ -49,7 +49,7 @@ static class TrafficMonitor
     [HarmonyPrefix, HarmonyPatch(typeof(ServerService<GameServerService>), "BeginCommand")]
     static bool BeginCommand(RequestCommand cmd)
     {
-        if (!RiCO.TrafficMonitoring)
+        if (!RiCO.TrafficMonitoring.Value)
             return true;
         
         RiCO.Log.LogWarning($"Client requested {cmd.responseType.Name} from Server");
@@ -60,7 +60,7 @@ static class TrafficMonitor
     [HarmonyPrefix, HarmonyPatch(typeof(OrangeGameManager), nameof(OrangeGameManager.LoginToGameService))]
     static bool LoginToGameService(object[] __args, string serverUrl, Callback p_cb)
     {
-        if (!RiCO.TrafficMonitoring)
+        if (!RiCO.TrafficMonitoring.Value)
             return true;
         
         RiCO.Log.LogWarning($"Server URL: {__args[0]}");
