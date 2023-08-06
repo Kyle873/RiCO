@@ -19,7 +19,6 @@
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using RiCO.Server;
 using System.Reflection;
 using UnityEngine;
 
@@ -67,10 +66,9 @@ public class RiCO : BaseUnityPlugin
 
     void Update()
     {
-        GameServerService service = Traverse.Create(PlayerNetManager.Instance).Field("WebService").GetValue() as GameServerService;
-
         if (Input.GetKeyDown(KeyCode.F1))
         {
+            GameServerService service = Traverse.Create(PlayerNetManager.Instance).Field("WebService").GetValue() as GameServerService;
         }
 
         if (Input.GetKeyDown(KeyCode.F11))
