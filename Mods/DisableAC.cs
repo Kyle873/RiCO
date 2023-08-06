@@ -12,8 +12,6 @@ static class DisableAC
         if (!RiCO.DisableAC)
             return true;
 
-        RiCO.Log.LogWarning($"PlayerHelper.SetUseCheatPlugin({res})");
-
         Traverse.Create(__instance).Field("CheatPlayer").SetValue(false);
 
         RiCO.Log.LogWarning("Anti-Cheat disabled!");

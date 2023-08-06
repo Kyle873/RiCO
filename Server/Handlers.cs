@@ -214,7 +214,7 @@ public static class Handlers
             DataCRC = 0,
             ExDataCRC = 0,
             SeqID = Server.SeqCount++,
-            Code = 200
+            Code = 105106 // Code for not in a guild, presumably
         });
     }
 
