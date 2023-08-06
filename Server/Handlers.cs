@@ -46,7 +46,7 @@ public static class Handlers
             DataCRC = 0,
             ExDataCRC = 0,
             SeqID = Server.SeqCount++,
-            Code = 1000
+            Code = (int)StatusCode.LoginSuccess
         });;
     }
 
@@ -79,7 +79,7 @@ public static class Handlers
             DataCRC = 0,
             ExDataCRC = 0,
             SeqID = Server.SeqCount++,
-            Code = 10000
+            Code = (int)StatusCode.RetrievePlayerInfoSuccess
         });
     }
 
@@ -107,7 +107,7 @@ public static class Handlers
             DataCRC = 0,
             ExDataCRC = 0,
             SeqID = Server.SeqCount++,
-            Code = 200
+            Code = (int)StatusCode.GenericSuccess
         });
     }
 
@@ -136,7 +136,7 @@ public static class Handlers
             DataCRC = 0,
             ExDataCRC = 0,
             SeqID = Server.SeqCount++,
-            Code = 200
+            Code = (int)StatusCode.GenericSuccess
         });
     }
 
@@ -166,7 +166,7 @@ public static class Handlers
             DataCRC = 0,
             ExDataCRC = 0,
             SeqID = Server.SeqCount++,
-            Code = 200
+            Code = (int)StatusCode.GenericSuccess
         });
     }
 
@@ -195,7 +195,7 @@ public static class Handlers
             DataCRC = 0,
             ExDataCRC = 0,
             SeqID = Server.SeqCount++,
-            Code = 200
+            Code = (int)StatusCode.GenericSuccess
         });
     }
 
@@ -214,7 +214,7 @@ public static class Handlers
             DataCRC = 0,
             ExDataCRC = 0,
             SeqID = Server.SeqCount++,
-            Code = 105106 // Code for not in a guild, presumably
+            Code = (int)StatusCode.NotInGuild
         });
     }
 
