@@ -4,7 +4,7 @@ using System;
 using System.Net;
 using System.Text;
 
-namespace RiCO.Emu;
+namespace RiCO.Server;
 
 public static class Handlers
 {

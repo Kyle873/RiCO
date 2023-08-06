@@ -19,7 +19,7 @@
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using RiCO.Emu;
+using RiCO.Server;
 using System.Reflection;
 using UnityEngine;
 
@@ -31,6 +31,11 @@ public class RiCO : BaseUnityPlugin
     public static ManualLogSource Log;
 
     public static bool ServerEnabled = false;
+    public static bool TrafficMonitoring = true;
+    public static bool DisableAC = true;
+    public static bool GachaAnimationBypass = true;
+    public static bool SetEventSliderMax = true;
+    
     public bool HostPatched;
 
     void Awake()
@@ -43,7 +48,7 @@ public class RiCO : BaseUnityPlugin
         AudioManager.Instance.PlaySystemSE(SystemSE.CRI_SYSTEMSE_SYS_WINDOW_OP03);
 
         if (ServerEnabled)
-            Server.Start();
+            Server.Server.Start();
         else
             HostPatched = true;
     }
@@ -51,7 +56,7 @@ public class RiCO : BaseUnityPlugin
     void OnDestroy()
     {
         if (ServerEnabled)
-            Server.Stop();
+            Server.Server.Stop();
 
         Harmony.UnpatchAll();
 
@@ -66,10 +71,6 @@ public class RiCO : BaseUnityPlugin
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            // foreach (var item in PlayerNetManager.Instance.dicItem)
-            // Utils.LogObject(item.Value.netItemInfo);
-
-            // PlayerNetManager.Instance.dicItem[1].netItemInfo.Stack = 1021420;
         }
 
         if (Input.GetKeyDown(KeyCode.F11))

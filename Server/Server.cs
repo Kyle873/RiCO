@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System;
 using System.IO;
 
-namespace RiCO.Emu;
+namespace RiCO.Server;
 
 public static class Server
 {

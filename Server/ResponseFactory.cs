@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace RiCO.Emu;
+namespace RiCO.Server;
 
 [AttributeUsage(AttributeTargets.Method)]
 internal class RequestHandler : Attribute
